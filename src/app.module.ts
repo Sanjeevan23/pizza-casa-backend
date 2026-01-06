@@ -12,11 +12,15 @@ import { CategoriesModule } from './categories/categories.module';
 import { FoodModule } from './products/food/food.module';
 import { BeverageModule } from './products/beverage/beverage.module';
 import { AdsModule } from './ads/ads.module';
+import { PopularProductsModule } from './popular-products/popular-products.module';
+import { FavouriteProductsModule } from './favourite-products/favourite-products.module';
+import { OffersModule } from './offers/offers.module';
+import { TaxesModule } from './taxes/taxes.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }), // loads .env
-    DatabaseModule, UsersModule, AuthModule, CategoriesModule, FoodModule, BeverageModule, AdsModule,                           // connects MongoDB
+    DatabaseModule, UsersModule, AuthModule, CategoriesModule, FoodModule, BeverageModule, AdsModule, PopularProductsModule, FavouriteProductsModule, OffersModule, TaxesModule,                           // connects MongoDB
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -64,7 +64,7 @@ export class UsersService {
   // Updates allowed profile fields for a user (username/email/password NOT changed here)
   async updateUser(userId: string, data: Partial<User>) {
     // Block username, email, password updates via this route.
-    const { username, email, password, ...allowedFields } = data as any;
+    const { username, email, password, ...allowedFields } = data;
 
     await this.userModel.updateOne({ _id: userId }, { $set: allowedFields });
 

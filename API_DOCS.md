@@ -321,6 +321,139 @@ Authorization: Bearer <JWT_TOKEN>
 
 ---------------------------------------------
 
+## Popular Products Endpoints
+
+### GET /popular-products
+Get all popular products.
+Accessible by all logged-in users.
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+### POST /popular-products
+Create a popular products (Admin only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+Body:
+{
+  "productId": " ",
+  "productType": " " ***food / beverage***
+}
+
+---------------------------------------------
+
+### DELETE /popular-products/:id
+Delete popular products (Admin only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+## Offer endpoints
+
+### POST /offers
+Create or replace an offer for a product (admin only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+Body:
+{
+  "productId": "<product ObjectId>",
+  "productType": "",    **"food" | "beverage"**
+  "discountValue": 10.5,
+  "startDate": "2026-01-10T00:00:00.000Z",
+  "endDate": "2026-01-20T00:00:00.000Z",
+  "isActive": true      //**optional, default true**
+}
+Notes:
+- ***productId must exist in the indicated productType collection. If an offer already exists for the product, this call will overwrite it.***
+
+---------------------------------------------
+
+### GET /offers
+Get active offers (only active and not expired).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+### GET /offers/admin
+Get all offers (admin only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+### PUT /offers/:id
+Update an existing offer (admin only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+Body: ***any subset of CreateOfferDto fields (productId change is allowed but validated).***
+
+---------------------------------------------
+
+### DELETE /offers/:id
+Delete offer by offer id (admin only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+## Tax endpoints
+
+### POST /taxes
+Create a tax (ADMIN only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+Body:
+{
+  "tax": 7.5,
+  "appliesTo": "",  **"all" | "food" | "beverage" (optional; default "all"),**
+  "name": "VAT" **(optional, unique)**,
+  "isActive": true **(optional)**
+}
+
+Notes:
+- Only **one** tax per `appliesTo` is allowed. Example: you cannot create two taxes with `appliesTo: "all"`.
+- If name is provided it must be unique. If an admin tries to create duplicate, a conflict error is returned.
+
+---------------------------------------------
+
+### PUT /taxes/:id
+Update tax (ADMIN only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+### DELETE /taxes/:id
+Delete tax (ADMIN only).
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+### GET /taxes
+Get all taxes 
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
 <!----------------------------------------------------------->
 
 ## Users Endpoints (JWT Protected)
@@ -407,6 +540,37 @@ Authorization: Bearer <JWT_TOKEN>
 ### GET /food
 Get all food items.
 Accessible by all logged-in users.
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+### POST /favourites
+Add a product as favourite
+Accessible by all logged-in users.
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+Body:
+{
+  "productId": " ",
+  "productType": " " ***food / beverage***
+}
+
+---------------------------------------------
+
+### GET /favourites
+Get my favourite products
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+---------------------------------------------
+
+### DELETE /favourites/:productId
+Remove a favourite product
 
 Headers:
 Authorization: Bearer <JWT_TOKEN>
